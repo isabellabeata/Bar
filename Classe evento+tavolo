@@ -1,0 +1,24 @@
+Event{
+1. quante tipologie di evento abbiamo: se solo 1, non ci sono tipologie, altrimenti enum EventType{}
+in questo caso c'è l'arrivo dei clienti, e il liberarsi del tavolo.
+		public enum EventType{
+						ARRIVO_GRUPPO_CLIENTI,
+						TAVOLO_LIBERATO}
+1.b Il singolo evento ha un  singolo EventType: 
+		private EventType type;
+2. Ogni evento ha un suo TEMPO, possiamo supporre un tempo intero, senza lavorare con le date
+		private Duration time; (andava bene anche un int)
+3. Numero di persone che compone il gruppo dell'evento
+		private int nPersone;
+4. Durata dell'evento
+		private Duration durata
+5. Tolleranza del gruppo
+		private double tolleranza
+6. Nel singolo evento può rivelarsi utile tenere traccia del tavolo assegnato, per modellarla creiamo una CLASSE per i Tavoli
+		private Tavolo tavolo;
+-->Creazione classe Tavolo{
+							private int posti;
+							private boolean occupato;
+							}
+}-->Generare costruttore, getter, IMPLEMENTARE COMPARABLE<Event> SUL TIME, essendo un Duration usiamo iol COMPARETO
+	definito da lei stessa nells ua libreria

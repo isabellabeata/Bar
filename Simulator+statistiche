@@ -1,0 +1,71 @@
+Simulator{
+1. modello del bar: lista di tavoli
+	private List<Tavolo> tavoli;
+2.  parametri della simulazione
+	private int NUM_EVENTI=2000
+	private int T_ARRIVO_MAX=10
+	private int NUM_PERSONE_MAX=10
+	private int DURATA_MIN=60
+	private int DURATA_MAX=120
+	private double TOLLERANZA_MAX=0.9
+	private double OCCUPAZIONE_MAX=0.5
+3. coda degli eventi
+	private PriorityQueue<Event> queue;
+4. dati in uscita: statistiche
+-->Creo una classe apposita Statistiche{
+									private int clientiTot;
+									private int clientiSoddisfatti;
+									private int clientiInsoddisfatti;
+									costruttore.. da creare vuoto, e settiamo tutto a 0
+									facciamo dei metodi incrementali:
+									public void incrementaClienti(int n){
+									this.clientiTot+=n;
+									}
+									getters...
+									}
+	private Statistiche statistiche:
+5. inizializzazione
+	public void() init{
+	inizializziamo la coda
+	creiamo le statistiche
+	creiamo i tavoli--> metodo creaTavolo:
+										private void creaTavolo(int quantita, int size){
+										for (int i=0; i<quantita; i++){
+										this.tavoli.add(new Tavolo(dimensione, false));
+										}
+										
+					--> metodo creaTavoli(){
+					creaTavolo(2,10);
+					...
+					Collections.sort(this.tavoli, new Comparator<Tavolo>()....}
+	creiamo gli eventi--> metodo creaEventi:
+										private void creaEventi(){
+										Duration arrivo= Duration.ofMinutes(0);
+										for(int i=0; i<this.NUM_EVENTI;i++){
+											int nPersone=(int)(Math.random()*this.NUM_PERSONE_MAX)+1;	
+											Duration durata= Duration.ofMinutes(this.DURATA_MIN+
+												(int)(Math.random()*(this.DURATA_MAX-this.DURATA_MIN));
+											double tolleranza= Math.random()*this.TOLLERANZA_MAX;
+											Event e= new Event(arrivo, EventType.ARRIVO_GRUPPO_CLIENTI,
+												nPersone, durata, tolleranza, null);
+											this.queue.add(e);
+											arrivo=arrivo.plusMinutes(Math.random()*this.T_ARRIVO_MAX+1));
+											}
+											}
+}
+6. Run(){
+while(!this.queue.isEmpty()){
+	Event e= queue.poll();
+	processaEvento(e);
+}
+7.processaEvento(Event e){
+switch(e.getType()){
+	case ARRIVO_GRUPPO_CLIENTI
+	//conto i clienti
+		this.statistiche.incrementaClienti(e.getnPersone);
+	//cerco un tavolo
+			
+		break;
+	case TAVOLO_LIBERATO
+		e.getTavolo.setOccupato(false);
+		break;
